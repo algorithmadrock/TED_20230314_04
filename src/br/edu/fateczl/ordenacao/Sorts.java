@@ -12,7 +12,7 @@ public class Sorts {
 	}
 
 //	BUBBLE SORT
-	public int[] Bubble(int[] vetor) {
+	public static int[] Bubble(int[] vetor) {
 		int tamanho = vetor.length;
 
 		for (int rodada = 1; rodada < tamanho; rodada++) {
@@ -30,37 +30,39 @@ public class Sorts {
 	}
 
 //	MERGE SORT
-	public int[] Merge(int[] vetor) {
+	public static int[] Merge(int[] vetor) {
 		vetor = particao(vetor, 0, vetor.length);
 		return vetor;
 	}
 
-	private int[] particao(int[] vetor, int inicio, int fim) {
+	private static int[] particao(int[] vetor, int inicio, int fim) {
 		int meio = (inicio + fim) / 2;
 		if (inicio != fim) {
 //			ainda não cheguei na "raiz" (vetor de 1 posição)
 			/* 1/2 */particao(vetor, inicio, meio);
 			/* 2/2 */particao(vetor, (meio + 1), fim);
-		}
-//		independente do vetor ter 1 ou 50 posições, a ordenação sempre se faz necessária
-		vetor = ordenacao(vetor, inicio, meio, fim);
-
-//		vou voltando recursivamente o vetor ordenado por rodadas
+			  /* 2/2 */particao(vetor, (meio + 1), fim);
+	    } else{ //PORQUE ORDENA SÓ NO FIM????
+//			a ordenacao sempre se faz necessária quando se chega na última rodada, quando meu vetor tem só [1] em referencia de memória eu retorno ele ordenando as partes 
+	      vetor = ordenacao(vetor, inicio, meio, fim);
+//			vou voltando recursivamente o vetor ordenado por rodadas
+	    }
 		return vetor;
 	}
 
-	private int[] ordenacao(int[] vetor, int inicio, int meio, int fim) {
+	private static int[] ordenacao(int[] vetor, int inicio, int meio, int fim) {
 		int[] aux = new int[vetor.length];
 
 //		cópia dos valores dentro do intervalo sub-vetor para o vetor auxiliar;
-		for (int c = inicio; c <= fim; c++) {
+		for (int c = inicio; c < fim; c++) {
+											//   se deixar <= a fim ele estoura 
 			aux[c] = vetor[c];
 		}
 
 		int in1 = inicio, in2 = (meio + 1); // marca o começo das duas partes
 
 //		ordenação dos valores copiados dentro do auxiliar SEGUINDO AS "REGRAS DE CONVIVÊNCIA"
-		for (int o = inicio; o <= fim; o++) {
+		for (int o = inicio; o < fim; o++) {
 //								quero que ele chegue na última posição, para encaixar em uma condições
 			if (in1 > meio) {
 //				essa partição inteira foi checada antes do fim da outra, vetor "menor". A partir dessa posição O, todos os valores serão da parte2
