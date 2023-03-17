@@ -31,43 +31,40 @@ public class Sorts {
 
 //	MERGE SORT
 	public static int[] Merge(int[] vetor) {
-		vetor = particao(vetor, 0, vetor.length);
+		vetor = particao(vetor, 0, (vetor.length - 1));
 		return vetor;
 	}
 
 	private static int[] particao(int[] vetor, int inicio, int fim) {
 		int meio = (inicio + fim) / 2;
-		if (inicio != fim) {
-//			ainda não cheguei na "raiz" (vetor de 1 posição)
-			/* 1/2 */particao(vetor, inicio, meio);
+		if ( inicio == fim) {
+			return vetor; // se for igual eu obrigatoriamente retorno o vetor
+	    } else{ 
+	    	/* 1/2 */particao(vetor, inicio, meio);
 			/* 2/2 */particao(vetor, (meio + 1), fim);
-			  /* 2/2 */particao(vetor, (meio + 1), fim);
-	    } else{ //PORQUE ORDENA SÓ NO FIM????
-//			a ordenacao sempre se faz necessária quando se chega na última rodada, quando meu vetor tem só [1] em referencia de memória eu retorno ele ordenando as partes 
-	      vetor = ordenacao(vetor, inicio, meio, fim);
-//			vou voltando recursivamente o vetor ordenado por rodadas
-	    }
-		return vetor;
+			ordenacao(vetor, inicio, meio, fim);
+//			vou voltando recursivamente o vetor ordenado por rodada 
+			return vetor;
+	    }	
 	}
 
-	private static int[] ordenacao(int[] vetor, int inicio, int meio, int fim) {
+	private static void ordenacao(int[] vetor, int inicio, int meio, int fim) {
 		int[] aux = new int[vetor.length];
 
 //		cópia dos valores dentro do intervalo sub-vetor para o vetor auxiliar;
-		for (int c = inicio; c < fim; c++) {
+		for (int c = inicio; c <= fim; c++) {
 											//   se deixar <= a fim ele estoura 
 			aux[c] = vetor[c];
 		}
 
-		int in1 = inicio, in2 = (meio + 1); // marca o começo das duas partes
+		int in1 = inicio, in2 = (meio + 1); // marca o começo das duas partes DENTRO do subvetor, para a ordenação de seus "sub vetores"
 
 //		ordenação dos valores copiados dentro do auxiliar SEGUINDO AS "REGRAS DE CONVIVÊNCIA"
-		for (int o = inicio; o < fim; o++) {
+		for (int o = inicio; o <= fim; o++) {
 //								quero que ele chegue na última posição, para encaixar em uma condições
 			if (in1 > meio) {
 //				essa partição inteira foi checada antes do fim da outra, vetor "menor". A partir dessa posição O, todos os valores serão da parte2
-				vetor[o] = aux[in2];
-				in2++;
+				vetor[o] = aux[in2++];
 			} else {
 				if (in2 > fim) {
 //					 A partir dessa posição O, todos os valores serão da parte1
@@ -76,18 +73,16 @@ public class Sorts {
 				} else {
 //					as regras para a INTERCALAÇÃO das variáveis; intercala as posiçõoes existentes no auxiliar, vendo se a primeira particão é maior que a segunda
 					if (aux[in1] < aux[in2]) {
-						vetor[o] = aux[in1];
-						in1++;
+						vetor[o] = aux[in1++];
+//						agrego o in1 e já acumulo nele +1
 					} else {
-						vetor[o] = aux[in2];
-						in2++;
+						vetor[o] = aux[in2++];
 					}
 				}
 
 			}
 		}
 
-		return vetor;
 	}
 
 }
