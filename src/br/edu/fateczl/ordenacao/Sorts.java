@@ -12,7 +12,7 @@ public class Sorts {
 	}
 
 //	BUBBLE SORT
-	public int[] Bubble(int[] vetor) {
+	public static int[] Bubble(int[] vetor) {
 		int tamanho = vetor.length;
 
 		for (int rodada = 1; rodada < tamanho; rodada++) {
@@ -30,12 +30,12 @@ public class Sorts {
 	}
 
 //	MERGE SORT
-	public int[] Merge(int[] vetor) {
+	public static int[] Merge(int[] vetor) {
 		vetor = subMERGE(vetor, 0, (vetor.length - 1));
 		return vetor;
 	}
 
-	private int[] subMERGE(int[] vetor, int inicio, int fim) {
+	private static int[] subMERGE(int[] vetor, int inicio, int fim) {
 		int meio = (inicio + fim) / 2;
 		if ( inicio == fim) {
 			return vetor; // se for igual eu obrigatoriamente retorno o vetor
@@ -48,7 +48,7 @@ public class Sorts {
 	    }	
 	}
 
-	private void ordeMERGE(int[] vetor, int inicio, int meio, int fim) {
+	private static void ordeMERGE(int[] vetor, int inicio, int meio, int fim) {
 		int[] aux = new int[vetor.length];
 
 //		cópia dos valores dentro do intervalo sub-vetor para o vetor auxiliar;
@@ -86,12 +86,12 @@ public class Sorts {
 	}
 	
 //	QUICK SORT
-	public int[] Quick(int[] vetor) {
+	public static int[] Quick(int[] vetor) {
 		vetor = subQUICK(vetor, 0, vetor.length-1);
 		return vetor;
 	}
 
-	private int[] subQUICK(int[] vetor, int inicio, int fim) {
+	private static int[] subQUICK(int[] vetor, int inicio, int fim) {
 		if (inicio < fim) {
 			// enquanto o fim for maior que o começo, o pivô não estoura pro negativo eu sigo repartindo com base no pivô fixo determinado anteriormente preciso saber a posição onde o pivo foi fixado para depois determinar os subvetores, como o "meio" em mergesort
 			int pivofixado = pivotQUICK(vetor, inicio, fim);
@@ -102,7 +102,7 @@ public class Sorts {
 		
 	}
 
-	private int pivotQUICK(int[] vetor, int inicio, int fim) {
+	private static int pivotQUICK(int[] vetor, int inicio, int fim) {
 		// agoritmo seguindo a lógica passada no vídeo, para a ordenação do vetor
 
 		/* ponteiro começo-fim */int red = (inicio + 1);
